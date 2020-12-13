@@ -1,0 +1,12 @@
+/* created by flemming */
+* {
+  color: white;
+  font-family: sans-serif;
+}
+#root {
+  background-color: black;
+}
+body {
+  padding: 0;
+  margin: 0;
+}

@@ -1,0 +1,54 @@
+/* created by flemming */
+.wrap {
+  width: 90%;
+  margin: 0 auto;
+}
+#carouselContainer {
+  display: flex; /* need for carousel */
+  position: static; /* need for carousel */
+  margin: auto;
+  align-content: center;
+  width: 100%;
+}
+
+#wrapper {
+  width: 100%;
+  display: flex; /* need for carousel */
+  margin: auto;
+}
+
+#innerWrapper {
+  border: 2px solid white;
+  width: 100%;
+}
+
+#carousel {
+  margin: auto;
+  width: 85%;
+  position: static; /* need for carousel */
+  display: flex; /* need for carousel */
+  border: 5px solid black;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+#carousel > .moviePanel {
+  flex-shrink: 0;
+}
+
+#leftArrow {
+  margin-left: auto; /* need for carousel */
+}
+
+#rightArrow {
+  margin-right: auto; /* need for carousel */
+}
+
+.arrow {
+  position: relative; /* need for carousel */
+  height: 50px;
+  width: 50px;
+  margin-top: auto;
+  margin-bottom: auto;
+  box-shadow: 1px 4px 10px rgba(50, 50, 50, 0.75);
+}

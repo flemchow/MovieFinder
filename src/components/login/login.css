@@ -1,0 +1,67 @@
+/* created by flemming */
+#container {
+  border: 2px solid white;
+  border-radius: 25px;
+  height: 50%;
+  width: 55%;
+  margin: auto;
+}
+
+#header {
+  width: 55%;
+  margin: auto;
+}
+
+.accountForm {
+  width: 55%;
+  display: grid;
+  grid-template-columns: 1;
+  margin: auto;
+}
+
+.formLabel {
+  font-size: larger;
+}
+
+#registerLink,
+#loginLink {
+  font-weight: bold;
+}
+
+#registerLink:hover,
+#loginLink:hover {
+  text-decoration: underline;
+}
+
+input[type="text"] {
+  color: black;
+  height: 30px;
+}
+input[type="password"] {
+  color: black;
+  height: 30px;
+}
+
+.pwdRevIcon {
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  /* position: relative; */
+}
+
+.subBtn {
+  font-size: large;
+  background-color: red;
+  width: 25%;
+  margin: auto;
+}
+/* input[type="submit"] {
+  font-size: large;
+  background-color: red;
+  width: 25%;
+  margin: auto;
+} */
+
+.errorPrompt {
+  color: yellow;
+}

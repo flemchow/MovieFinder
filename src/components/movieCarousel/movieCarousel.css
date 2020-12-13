@@ -1,0 +1,36 @@
+/* created by flemming */
+.wrapper {
+  height: 60%;
+  width: 90%;
+  margin: 0 auto;
+  position: static;
+  z-index: 1;
+  padding-bottom: 5%;
+}
+
+.slider {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  /* z-index: 1; */
+}
+
+.window {
+  border: 2px solid white;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.arrow {
+  background-color: red;
+  font-size: x-large;
+  font-weight: bold;
+  height: 12%;
+  width: 12%;
+  position: absolute;
+  z-index: 2;
+  box-shadow: 1px 4px 10px rgba(255, 255, 255, 0.75);
+}

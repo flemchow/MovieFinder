@@ -1,0 +1,29 @@
+/* created by flemming */
+#title {
+  text-decoration: none;
+}
+
+#title:hover + #items,
+#items:hover {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+}
+#items {
+  background-color: white;
+  box-shadow: 1px 4px 10px rgba(50, 50, 50, 0.75);
+  left: 0;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1em;
+  display: none;
+  align-content: flex-end;
+}
+
+.dropdownItem {
+  font-size: medium;
+  color: black;
+}
+
+.dropdownItem:hover {
+  text-decoration: underline;
+}

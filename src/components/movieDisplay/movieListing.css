@@ -1,0 +1,29 @@
+/* created by flemming */
+#movieListing {
+  margin: auto;
+  width: 95%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 1em;
+}
+
+.panelFrame {
+  padding: 25px 0;
+}
+
+#pageNavContainer {
+  margin: 50px auto 0 auto;
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.pageNav {
+  /* border: 2px solid white; */
+  margin: auto;
+  background-color: red;
+  width: 50px;
+  height: 50px;
+  font-size: larger;
+  font-weight: bold;
+}

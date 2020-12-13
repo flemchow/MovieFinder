@@ -1,0 +1,136 @@
+/* created by flemming */
+/* Header */
+.navBar {
+  background-color: black;
+  box-shadow: 0px 4px 3px rgba(50, 50, 50, 0.75);
+  display: grid;
+  grid-template-columns: 25% 75%;
+  font-size: x-large;
+  padding: 10px;
+  height: 100px;
+  align-items: center;
+  margin-bottom: 100px;
+
+  position: relative;
+}
+
+#logoContainer {
+  margin: auto;
+  height: fit-content;
+  width: fit-content;
+}
+
+#logoLink {
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
+  position: relative;
+}
+
+.navBar img {
+  margin: auto;
+  height: auto;
+  width: 85%;
+}
+
+#innerContainer {
+  position: relative;
+  align-items: center;
+  text-align: center;
+}
+
+#headerList {
+  position: relative;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  float: right;
+  align-items: center;
+}
+
+.headerItem {
+  display: inline-block;
+  text-align: center;
+  padding: 14px 16px;
+}
+
+.headerItem:hover {
+  text-decoration: underline;
+}
+
+.headerLink {
+  text-decoration: none;
+}
+
+.active {
+  text-decoration: underline;
+}
+
+input[type="text"] {
+  font-size: large;
+}
+
+input[type="text"]:focus {
+  border: 2px solid #555;
+}
+
+#loginHeader {
+  color: red;
+}
+
+/* Footer */
+#footerContainer {
+  box-shadow: 1px -4px 10px rgba(50, 50, 50, 0.75);
+  margin-top: 150px;
+  height: 270px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.footdiv {
+  margin: auto;
+  text-align: center;
+  align-items: center;
+  vertical-align: middle;
+}
+
+#logoDiv {
+  width: 100%;
+  height: auto;
+  margin: auto;
+}
+
+.mfLogo {
+  height: auto;
+  width: 75%;
+}
+.images {
+  height: 100px;
+}
+
+#footList {
+  list-style: none;
+}
+
+/* Genre Nav */
+#genresDiv {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 1em;
+  text-align: center;
+  margin: 50 auto;
+  padding: 0;
+  /* padding-bottom: 50px; */
+  width: 90%;
+  border: 1px solid black;
+  font-size: small;
+  border: 2px solid white;
+}
+
+/* genreNav */
+.genreItem {
+  font-size: large;
+}
+.genreItem:hover {
+  text-decoration: underline;
+}
