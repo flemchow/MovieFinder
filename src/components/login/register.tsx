@@ -51,9 +51,10 @@ export default function Register(): JSX.Element {
   const [accountData, setAccountData] = useState<AccountDataType>(
     DefaultAccountData
   );
-  const [regiState, setRegiState] = useState<AccountSubmitType>(
-    RegiErrorPrompt
-  );
+  const [usernamePrompt, setUsernamePrompt] = useState<string>("");
+  const [passwordPrompt, setPasswordPrompt] = useState<string>("");
+  const [cPasswordPrompt, setCPasswordPrompt] = useState<string>("");
+  const [submit, setSubmit] = useState<boolean>(false);
   const prompt = "* Cannot be left empty";
   const pwdErrorPrompt = "* Passwords dont match";
   const isFirstRun = useRef(true);
@@ -65,30 +66,27 @@ export default function Register(): JSX.Element {
         accountData.username
       ) {
         if (accountData.confirmPassword !== accountData.password) {
-          setRegiState({
-            ...regiState,
-            confirmPassword: pwdErrorPrompt,
-            submit: false,
-          });
+          setCPasswordPrompt(pwdErrorPrompt);
+          setSubmit(false);
         } else {
-          const value = RegistrationUser({
-            username: accountData.username,
-            password: accountData.password,
-          });
-          value ? alert("Registered!") : alert("error occured 😭");
+          setSubmit(false);
+          console.log("registration process start");
+
+          // const value = RegistrationUser({
+          //   username: accountData.username,
+          //   password: accountData.password,
+          // });
+          // value ? alert("Registered!") : alert("error occured 😭");
         }
       } else {
-        setRegiState({
-          ...regiState,
-          password: prompt,
-          confirmPassword: prompt,
-          username: prompt,
-          submit: false,
-        });
+        setSubmit(false);
+        if (!accountData.username) setUsernamePrompt(prompt);
+        if (!accountData.password) setPasswordPrompt(prompt);
+        if (!accountData.confirmPassword) setCPasswordPrompt(prompt);
       }
     }
     isFirstRun.current = false;
-  }, [regiState.submit]);
+  }, [submit]);
 
   return (
     <>
@@ -97,7 +95,7 @@ export default function Register(): JSX.Element {
       </div>
       <form id="registerForm" className="accountForm">
         <label className="formLabel">
-          Username <span className="errorPrompt">{regiState.username}</span>
+          Username <span className="errorPrompt">{usernamePrompt}</span>
         </label>
         <input
           type="text"
@@ -109,15 +107,11 @@ export default function Register(): JSX.Element {
               ...accountData,
               username: event.target.value,
             });
-            setRegiState({
-              ...regiState,
-              username: "",
-              // submit: false,
-            });
+            setUsernamePrompt("");
           }}
         />
         <label className="formLabel">
-          Password <span className="errorPrompt">{regiState.password}</span>
+          Password <span className="errorPrompt">{passwordPrompt}</span>
         </label>
         <input
           type="password"
@@ -129,16 +123,12 @@ export default function Register(): JSX.Element {
               ...accountData,
               password: event.target.value,
             });
-            setRegiState({
-              ...regiState,
-              password: "",
-              // submit: false,
-            });
+            setPasswordPrompt("");
           }}
         />
         <label className="formLabel">
           Confirm Password{" "}
-          <span className="errorPrompt">{regiState.confirmPassword}</span>
+          <span className="errorPrompt">{cPasswordPrompt}</span>
         </label>
         <input
           type="password"
@@ -150,11 +140,7 @@ export default function Register(): JSX.Element {
               ...accountData,
               confirmPassword: event.target.value,
             });
-            setRegiState({
-              ...regiState,
-              confirmPassword: "",
-              // submit: false,
-            });
+            setCPasswordPrompt("");
           }}
         />
         <input
@@ -163,10 +149,10 @@ export default function Register(): JSX.Element {
           value="Register"
           onClick={(event) => {
             event.preventDefault();
-            setRegiState({
-              ...regiState,
-              submit: true,
-            });
+            setUsernamePrompt("");
+            setPasswordPrompt("");
+            setCPasswordPrompt("");
+            setSubmit(true);
           }}
         />
         <p>
