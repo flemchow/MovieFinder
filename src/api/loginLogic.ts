@@ -1,5 +1,5 @@
 // created by flemming
-
+import { accountServerURL } from "./constants";
 /**
  * typing used for defining what is being expected
  */
@@ -12,8 +12,7 @@ interface UserInfo {
  * fucntion used to recieve and log in an user
  * @param userinfo user info {username: string, password: string}
  */
-export function LoginUser(userinfo: UserInfo): boolean {
-  console.log(userinfo);
+export async function LoginUser(userinfo: UserInfo): Promise<boolean> {
   if (userinfo) {
     const user = JSON.parse(localStorage.getItem("user")!);
     if (
@@ -36,20 +35,24 @@ export function LoginUser(userinfo: UserInfo): boolean {
  * fucntion used to recieve and register a new user
  * @param userinfo user info {username: string, password: string}
  */
-export function RegistrationUser(userinfo: UserInfo): boolean {
+export async function RegistrationUser(userinfo: UserInfo): Promise<boolean> {
   console.log(userinfo);
   if (userinfo) {
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        username: userinfo.username,
-        password: userinfo.password,
-      })
-    );
-    console.log("user saved to local storage");
-    return true;
+    const res = await fetch(`${accountServerURL}register`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userinfo),
+    });
+    console.log(res.status);
+    if (res.status == 200) {
+      return true;
+    } else {
+      return false;
+    }
   } else {
-    console.log("save to local storage failed");
     return false;
   }
 }

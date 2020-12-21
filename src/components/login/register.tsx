@@ -69,14 +69,16 @@ export default function Register(): JSX.Element {
           setCPasswordPrompt(pwdErrorPrompt);
           setSubmit(false);
         } else {
-          setSubmit(false);
+          // setSubmit(false);
           console.log("registration process start");
 
-          // const value = RegistrationUser({
-          //   username: accountData.username,
-          //   password: accountData.password,
-          // });
-          // value ? alert("Registered!") : alert("error occured 😭");
+          (async () => {
+            const regiStatus = await RegistrationUser({
+              username: accountData.username,
+              password: accountData.password,
+            });
+            console.log(regiStatus);
+          })();
         }
       } else {
         setSubmit(false);
@@ -95,7 +97,7 @@ export default function Register(): JSX.Element {
       </div>
       <form id="registerForm" className="accountForm">
         <label className="formLabel">
-          Username <span className="errorPrompt">{usernamePrompt}</span>
+          Email <span className="errorPrompt">{usernamePrompt}</span>
         </label>
         <input
           type="text"

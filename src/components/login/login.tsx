@@ -57,11 +57,13 @@ export default function LoginComponent(): JSX.Element {
   useEffect(() => {
     // this needs to be redone, just a simple poc right now
     if (userData.password && userData.username) {
-      const value = LoginUser({
-        username: userData.username,
-        password: userData.password,
-      });
-      value ? alert("Logged in!") : alert("error occured 😭");
+      (async () => {
+        const logStatus = LoginUser({
+          username: userData.username,
+          password: userData.password,
+        });
+        console.log(logStatus);
+      })();
     } else {
       if (!isFirstRun.current) {
         setLoginState({
