@@ -1,94 +1,73 @@
-//created by Flemming
-import React, { useContext, useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext, useState, FormEvent } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import { HeaderContext } from "../../context";
 import "./login.css";
-import { RegistrationUser } from "../../api";
+import { registrationUser } from "../../api";
 
-/**
- * used for defining types, syntactic sugar
- */
 interface AccountDataType {
+  email: string;
   username: string;
   password: string;
   confirmPassword: string;
 }
 
-/**
- * defining default type, syntatic sugar
- */
 const DefaultAccountData = {
+  email: "",
   username: "",
   password: "",
   confirmPassword: "",
 };
 
-/**
- * used for defining types, syntactic sugar
- */
-interface AccountSubmitType {
-  username: string;
-  password: string;
-  confirmPassword: string;
-  submit: boolean;
-}
-
-/**
- * defining default type, syntatic sugar
- */
-const RegiErrorPrompt = {
-  username: "",
-  password: "",
-  confirmPassword: "",
-  submit: false,
-};
-
-/**
- * retuns react element for registers
- */
 export default function Register(): JSX.Element {
   const { header, setHeader } = useContext(HeaderContext);
   const [accountData, setAccountData] = useState<AccountDataType>(
     DefaultAccountData
   );
+  const [emailPrompt, setEmailPrompt] = useState<string>("");
   const [usernamePrompt, setUsernamePrompt] = useState<string>("");
   const [passwordPrompt, setPasswordPrompt] = useState<string>("");
   const [cPasswordPrompt, setCPasswordPrompt] = useState<string>("");
-  const [submit, setSubmit] = useState<boolean>(false);
+  const history = useHistory();
   const prompt = "* Cannot be left empty";
   const pwdErrorPrompt = "* Passwords dont match";
-  const isFirstRun = useRef(true);
-  useEffect(() => {
-    if (!isFirstRun.current) {
-      if (
-        accountData.password &&
-        accountData.confirmPassword &&
-        accountData.username
-      ) {
-        if (accountData.confirmPassword !== accountData.password) {
-          setCPasswordPrompt(pwdErrorPrompt);
-          setSubmit(false);
-        } else {
-          // setSubmit(false);
-          console.log("registration process start");
 
-          (async () => {
-            const regiStatus = await RegistrationUser({
-              username: accountData.username,
-              password: accountData.password,
-            });
-            console.log(regiStatus);
-          })();
-        }
-      } else {
-        setSubmit(false);
-        if (!accountData.username) setUsernamePrompt(prompt);
-        if (!accountData.password) setPasswordPrompt(prompt);
-        if (!accountData.confirmPassword) setCPasswordPrompt(prompt);
+  function checkInputs() {
+    let valid = true;
+    if (!accountData.email) {
+      setEmailPrompt(prompt);
+      valid = false;
+    }
+    if (!accountData.username) {
+      setUsernamePrompt(prompt);
+      valid = false;
+    }
+    if (!accountData.password) {
+      setPasswordPrompt(prompt);
+      valid = false;
+    }
+    if (!accountData.confirmPassword) {
+      setCPasswordPrompt(prompt);
+      valid = false;
+    }
+    if (accountData.password != accountData.confirmPassword) {
+      setCPasswordPrompt(pwdErrorPrompt);
+      valid = false;
+    }
+    return valid;
+  }
+
+  async function register(event: FormEvent<HTMLInputElement>) {
+    event.preventDefault();
+    if (checkInputs()) {
+      const { username, password, email } = accountData;
+      const regiStatus = await registrationUser({ email, username, password });
+      if (regiStatus) {
+        setHeader("Login");
+        history.replace("/");
+        history.push("/login");
       }
     }
-    isFirstRun.current = false;
-  }, [submit]);
+  }
 
   return (
     <>
@@ -97,7 +76,23 @@ export default function Register(): JSX.Element {
       </div>
       <form id="registerForm" className="accountForm">
         <label className="formLabel">
-          Email <span className="errorPrompt">{usernamePrompt}</span>
+          Email <span className="errorPrompt">{emailPrompt}</span>
+        </label>
+        <input
+          type="text"
+          className="regiInput"
+          id="regiEmail"
+          value={accountData.email}
+          onChange={(event) => {
+            setAccountData({
+              ...accountData,
+              email: event.target.value,
+            });
+            setEmailPrompt("");
+          }}
+        />
+        <label className="formLabel">
+          Username <span className="errorPrompt">{usernamePrompt}</span>
         </label>
         <input
           type="text"
@@ -150,11 +145,7 @@ export default function Register(): JSX.Element {
           type="submit"
           value="Register"
           onClick={(event) => {
-            event.preventDefault();
-            setUsernamePrompt("");
-            setPasswordPrompt("");
-            setCPasswordPrompt("");
-            setSubmit(true);
+            register(event);
           }}
         />
         <p>

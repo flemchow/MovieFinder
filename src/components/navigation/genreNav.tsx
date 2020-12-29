@@ -1,4 +1,3 @@
-// created by flemming
 import React, { useContext, useLayoutEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./nav.css";
@@ -6,20 +5,14 @@ import { NavContext } from "../../context";
 import { ByGenre } from "../../api";
 import { Genres } from "../../models";
 
-/**
- * return box housing all available genres for user selction
- */
 export default function GenreNav() {
   let { data, setData } = useContext(NavContext);
 
-  // converts object to array of usable genres
   let arGenres: string[] = [];
   Genres.forEach((element) => {
     arGenres.push(element);
   });
 
-  // updates when ever rerender is initialized, rerender occurs upon new state change.
-  // calls fetch to get listing of all movies of the updated genre
   useLayoutEffect(() => {
     Genres.forEach(async (value, key) => {
       if (value === data.genre) {

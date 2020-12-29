@@ -1,81 +1,66 @@
-// created by Flemming
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { HeaderContext } from "../../context";
-import { LoginUser } from "../../api";
+import React, { FormEvent, useContext, useState } from "react";
+import { NavLink, useHistory } from "react-router-dom";
+import { HeaderContext, NavBarLinkContext } from "../../context";
+import { loginUser } from "../../api";
 import "./login.css";
 
-/**
- * interface used to define typing, syntactic sugar
- */
 interface UserLoginTypes {
   username: string;
   password: string;
 }
 
-/**
- * interface used to define typing, syntactic sugar
- */
 interface UserSubmitType {
   username: string;
   password: string;
   submit: boolean;
 }
 
-/**
- * constant used for defining default stat values
- */
 const UserLogin = {
   username: "",
   password: "",
 };
 
-/**
- * constant used for defining default stat values
- */
 const LoginErrorPrompt = {
   username: "",
   password: "",
   submit: false,
 };
 
-/**
- * returns a react login element
- */
 export default function LoginComponent(): JSX.Element {
+  const { data, setData } = useContext(NavBarLinkContext);
   const { header, setHeader } = useContext(HeaderContext);
   const [userData, setUserData] = useState<UserLoginTypes>(UserLogin);
   const [loginState, setLoginState] = useState<UserSubmitType>(
     LoginErrorPrompt
   );
+  const history = useHistory();
   const prompt = "* Cannot be left empty";
 
-  /**
-   * ensure the interface rerenders upon each loginState state change
-   */
-  const isFirstRun = useRef(true);
-  useEffect(() => {
-    // this needs to be redone, just a simple poc right now
-    if (userData.password && userData.username) {
-      (async () => {
-        const logStatus = LoginUser({
-          username: userData.username,
-          password: userData.password,
-        });
-        console.log(logStatus);
-      })();
-    } else {
-      if (!isFirstRun.current) {
-        setLoginState({
-          ...loginState,
-          username: prompt,
-          password: prompt,
-          submit: false,
-        });
-      }
-      isFirstRun.current = false;
+  const checkInputs = () => {
+    if (!userData.username || !userData.password) {
+      setLoginState({
+        ...loginState,
+        username: prompt,
+        password: prompt,
+        submit: false,
+      });
+      return false;
     }
-  }, [loginState.submit]);
+    return true;
+  };
+
+  async function login(event: FormEvent<HTMLInputElement>) {
+    event.preventDefault();
+    if (checkInputs()) {
+      const { username, password } = userData;
+      const logStatus = await loginUser({ username, password });
+      if (logStatus) {
+        setData({ ...data, loginStatus: true });
+
+        history.goBack();
+      }
+    }
+  }
 
   return (
     <>
@@ -94,10 +79,8 @@ export default function LoginComponent(): JSX.Element {
           onChange={(event) => {
             setUserData({ ...userData, username: event.target.value });
             setLoginState({ ...loginState, username: "" });
-            // setLoginState({ ...loginState, username: "", submit: false });
           }}
         />
-        {/* <label className="errorPrompt">{loginState.username}</label> */}
         <label className="formLabel">
           Password <span className="errorPrompt">{loginState.password}</span>{" "}
         </label>
@@ -109,19 +92,14 @@ export default function LoginComponent(): JSX.Element {
           onChange={(event) => {
             setUserData({ ...userData, password: event.target.value });
             setLoginState({ ...loginState, password: "" });
-            // setLoginState({ ...loginState, password: "", submit: false });
           }}
         />
-        {/* /<label className="errorPrompt">{loginState.password}</label> */}
         <input
           className="subBtn"
-          type="button"
+          type="submit"
           value="Log In"
-          onClick={() => {
-            setLoginState({
-              ...loginState,
-              submit: true,
-            });
+          onClick={(event) => {
+            login(event);
           }}
         />
         <p>

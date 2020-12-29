@@ -1,4 +1,3 @@
-//created by flemming
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { SearchResults } from "../../api";
 import { BrowserRouter, Route, Switch, useLocation } from "react-router-dom";
@@ -6,27 +5,18 @@ import { MovieListing } from "../../components";
 import { SearchContext } from "../../context";
 import { Movie, PageData } from "../../models";
 
-/**
- * used to defing typing in typescript
- */
 interface SearchType {
   pageNumber: number;
   movies: Movie[];
   pageData: PageData;
 }
 
-/**
- * set default value for doing a search
- */
 const SearchDefault = {
   pageNumber: 1,
   movies: [],
   pageData: { page: 1, totalPages: 0 },
 };
 
-/**
- * creates the search page
- */
 export default function SearchPage(): JSX.Element {
   const [searchData, setSearchData] = useState<SearchType>(SearchDefault);
   const sendKeyword = useLocation<string>();

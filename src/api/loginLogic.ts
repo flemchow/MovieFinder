@@ -1,28 +1,58 @@
-// created by flemming
 import { accountServerURL } from "./constants";
-/**
- * typing used for defining what is being expected
- */
+
 interface UserInfo {
   username: string;
   password: string;
 }
 
-/**
- * fucntion used to recieve and log in an user
- * @param userinfo user info {username: string, password: string}
- */
-export async function LoginUser(userinfo: UserInfo): Promise<boolean> {
+interface RegisterInfo {
+  email: string;
+  username: string;
+  password: string;
+}
+
+export async function tokenRefresh() {
+  const data = {
+    rtoken: localStorage.getItem("refresh"),
+  };
+  const res = await fetch(`${accountServerURL}login/token`, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (res.status == 200) {
+    res.json().then((data) => {
+      localStorage.setItem("access", data.accessToken);
+    });
+    return true;
+  } else {
+    localStorage.clear();
+    return false;
+  }
+}
+
+export async function loginUser(userinfo: UserInfo): Promise<boolean> {
   if (userinfo) {
-    const user = JSON.parse(localStorage.getItem("user")!);
-    if (
-      user.username === userinfo.username &&
-      user.password === userinfo.password
-    ) {
-      console.log("user authenticated");
+    const res = await fetch(`${accountServerURL}login`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userinfo),
+    });
+
+    if (res.status == 200) {
+      res.json().then((data) => {
+        localStorage.setItem("access", data.accessToken);
+        localStorage.setItem("refresh", data.refreshToken);
+        localStorage.setItem("username", data.username);
+      });
       return true;
     } else {
-      console.log("credentials are flawed");
       return false;
     }
   } else {
@@ -31,12 +61,9 @@ export async function LoginUser(userinfo: UserInfo): Promise<boolean> {
   }
 }
 
-/**
- * fucntion used to recieve and register a new user
- * @param userinfo user info {username: string, password: string}
- */
-export async function RegistrationUser(userinfo: UserInfo): Promise<boolean> {
-  console.log(userinfo);
+export async function registrationUser(
+  userinfo: RegisterInfo
+): Promise<boolean> {
   if (userinfo) {
     const res = await fetch(`${accountServerURL}register`, {
       method: "POST",
