@@ -1,29 +1,33 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { NavBarLinkContext } from "../../context";
 import "./dropdownMenu.css";
 
-interface Props {
-  title: string;
-  genres: Map<number, string>;
-}
-export default function DropDown(props: Props): JSX.Element {
-  let arGenres: string[] = [];
-  props.genres.forEach((element) => {
-    arGenres.push(element);
-  });
+export default function DropDown(): JSX.Element {
+  const { data, setData } = useContext(NavBarLinkContext);
+  const [reroute, setReroute] = useState<string>("Login");
+  useEffect(() => {
+    if (!data.loginStatus) {
+      setData({ ...data, headerLink: "Login" });
+      setReroute(`/login`);
+    } else {
+      setData({ ...data, headerLink: "MyAccount" });
+      setReroute(`/account`);
+    }
+  }, [data.loginStatus]);
   return (
     <>
-      <Link id="title" to="/account">
-        {props.title}
-      </Link>
+      <NavLink
+        to={reroute}
+        exact
+        className="headerLink"
+        activeClassName="active"
+        id="title"
+      >
+        {data.headerLink}
+      </NavLink>
       <div id="items">
-        {arGenres.map((element, index) => {
-          return (
-            <p className="dropdownItem" key={index}>
-              <Link to={`/genres/${element}`}>{element}</Link>
-            </p>
-          );
-        })}
+        <p>hello</p>
       </div>
     </>
   );

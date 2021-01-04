@@ -79,14 +79,12 @@ export default function NavBar(): JSX.Element {
           </li>
           <li className="headerItem">
             <NavLink
-              // to="/login"
               to={reroute}
               exact
               className="headerLink"
               activeClassName="active"
               id="loginHeader"
             >
-              {/* Login */}
               {data.headerLink}
             </NavLink>
           </li>

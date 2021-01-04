@@ -1,6 +1,7 @@
 /* created by flemming */
 #title {
   text-decoration: none;
+  color: red;
 }
 
 #title:hover + #items,
@@ -10,11 +11,11 @@
   display: grid;
 }
 #items {
-  background-color: white;
+  background-color: black;
   box-shadow: 1px 4px 10px rgba(50, 50, 50, 0.75);
-  left: 0;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 1em;
+  /* left: 0; */
+  /* grid-template-columns: repeat(5, 1fr); */
+  /* grid-gap: 1em; */
   display: none;
   align-content: flex-end;
 }
