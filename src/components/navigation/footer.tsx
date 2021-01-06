@@ -1,13 +1,8 @@
-//created by flemming
 import React from "react";
 import "./nav.css";
 import logo from "../../assets/logo_v2.2.png";
 import tmdb from "../../assets/theMovieDB.svg";
 
-/**
- * returns react element footer
- * simple components at the bottom of the page
- */
 export default function Footer() {
   return (
     <footer id="footerContainer">

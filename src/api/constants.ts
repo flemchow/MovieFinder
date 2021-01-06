@@ -1,7 +1,3 @@
-//created by flemming
-/**
- * this file is used for storing various API urls.
- */
 export const apiKey: string = process.env.API_KEY!;
 export const movieUrl: string = "https://api.themoviedb.org/3/movie/";
 export const posterUrl: string = "https://image.tmdb.org/t/p/original/";

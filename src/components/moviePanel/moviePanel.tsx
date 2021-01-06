@@ -1,11 +1,6 @@
-// created by Flemming
 import React from "react";
 import "./moviePanel.css";
 
-/**
- * used for typing, syntatic sugar.
- * enhances code readability
- */
 interface PanelProps {
   className: string;
   title: string;
@@ -15,10 +10,6 @@ interface PanelProps {
   genres: string[];
 }
 
-/**
- *
- * @param props is an object containing title, releaseyear, description, poster url, genres of the given movie
- */
 export default function MoviePanel(props: PanelProps) {
   const { title, releaseYear, description, imgUrl, genres } = props;
 

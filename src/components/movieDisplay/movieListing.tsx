@@ -1,12 +1,8 @@
-// created by flemming
 import React, { useContext } from "react";
 import { SearchContext, NavContext } from "../../context";
 import { MoviePanel } from "../";
 import "./movieListing.css";
 
-/**
- * returns a listing of movies based upon by genre, genre taken from data context, set in genreNav component
- */
 export default function MovieListing(): JSX.Element {
   const { data, setData } = useContext(NavContext);
   const { searchData, setSearchData } = useContext(SearchContext);
@@ -17,7 +13,6 @@ export default function MovieListing(): JSX.Element {
   } else {
     load = data;
   }
-  // console.log(load);
 
   return (
     <>

@@ -1,7 +1,3 @@
-// created by flemming
-/**
- * list of genres avaliable
- */
 export const Genres = new Map([
   [0, "All"],
   [28, "Action"],

@@ -1,4 +1,3 @@
-/* created by flemming */
 import React, { useState } from "react";
 import { Movie } from "../../models";
 import "./showcasePanel.css";
@@ -6,11 +5,6 @@ interface Props {
   movie: Movie;
 }
 
-/**
- * returns a showcasePanel
- *
- * @param props Movie
- */
 export default function ShowCasePanel(props: Props) {
   const [movie] = useState<Movie>(props.movie);
 
