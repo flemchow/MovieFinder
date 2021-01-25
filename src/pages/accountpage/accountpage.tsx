@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { NavBarLinkContext } from "../../context";
+import { AccountSidebar } from "../../components/account";
 
 export default function AccountPage(): JSX.Element {
   const { data, setData } = useContext(NavBarLinkContext);
@@ -18,6 +19,7 @@ export default function AccountPage(): JSX.Element {
   ) : (
     <>
       <h1>Hello, {localStorage.getItem("username")}</h1>
+      <AccountSidebar />
     </>
   );
 }
