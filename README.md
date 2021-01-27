@@ -1,6 +1,6 @@
 # MovieFinder
 
-After learning about HCI (Human-Computer Intereaction) in class, it became apparent to me that applications with high positive user experience are generally interfaces that focuses on learnability and discoverability (applications that are out of the box easy to use and work with). I believe that to acheive such a result, a clean and consice interface would be beneficial, and my choice in technologies reflected this belief.
+After learning about HCI (Human-Computer Interaction) in class, it became apparent to me that applications with high positive user experience are generally interfaces that focuses on learnability and discoverability (applications that are out of the box easy to use and work with). I believe that to acheive such a result, a clean and consice interface would be beneficial, and my choice in technologies reflected this belief.
 
 MovieFinder is a personal passion project. Its primary purposed is to provide a platform for me to learn how to develop a ReactJS application using TypeScript.
 
